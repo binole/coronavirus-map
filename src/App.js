@@ -214,24 +214,31 @@ function App() {
           });
 
           if (cities && cities.length > 0) {
-            cities.forEach(({ cityEnglishName, confirmedCount }) => {
-              searchLocation(
-                { province: cityEnglishName, country, deadCount, curedCount },
-                pos => {
-                  pos.forEach(({ latitude, longitude }) => {
-                    addMarkerToGroup(group, {
-                      lat: latitude,
-                      lng: longitude,
-                      confirmedCount,
-                      province: cityEnglishName,
-                      country,
-                      deadCount,
-                      curedCount
+            cities.forEach(
+              ({ cityEnglishName, confirmedCount, deadCount, curedCount }) => {
+                searchLocation(
+                  {
+                    province: cityEnglishName,
+                    country,
+                    deadCount,
+                    curedCount
+                  },
+                  pos => {
+                    pos.forEach(({ latitude, longitude }) => {
+                      addMarkerToGroup(group, {
+                        lat: latitude,
+                        lng: longitude,
+                        province: cityEnglishName,
+                        country,
+                        confirmedCount,
+                        deadCount,
+                        curedCount
+                      });
                     });
-                  });
-                }
-              );
-            });
+                  }
+                );
+              }
+            );
           }
         }
       );
